@@ -55,7 +55,6 @@ async function migrateTables(tables) {
       await dbV3('sqlite_master')
         .select('name')
         .where('name', 'like', '%_components')
-        .where('table_schema', process.env.DATABASE_V3_DATABASE)
     )
       .map((row) => row.name)
       .filter((item) => !componentsToMigrate.includes(item));

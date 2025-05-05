@@ -9,6 +9,10 @@ const { resolveSourceTableName } = require('./helpers/tableNameHelpers');
 var relations = [];
 const skipAttributes = ['created_by', 'updated_by'];
 
+const TABLE_RENAMES = {
+  sidebars: 'sidebar',
+};
+
 async function migrateModels(tables) {
   console.log('Migrating Models');
   const modelsDefs = await dbV3(resolveSourceTableName('core_store')).where(
@@ -38,7 +42,11 @@ async function migrateModels(tables) {
         omitAttributes.push(key);
       }
     }
-    await migrate(modelDef.collectionName, modelDef.collectionName.toLowerCase(), (item) => {
+
+    const srcTable  = modelDef.collectionName;
+    const destTable = (TABLE_RENAMES[srcTable] || srcTable).toLowerCase();
+
+  await migrate(srcTable, destTable, (item) => {
       if (modelDef.options.timestamps === false) {
         return migrateItem(item);
       } else {
