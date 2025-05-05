@@ -6,7 +6,7 @@ Line 58: Removed .where('table_schema', ...) filter.
 
 <pre><code>// Original (removed): .where('table_schema', dbConfig.connection.database)</code></pre>
 
-This line was removed to ensure compatibility with SQLite. The default .where('table_schema', …) filter caused issues during component migration because SQLite does not support table_schema. This change aligns with recommendations found in Capstone team documentation.
+This line was removed to ensure compatibility with SQLite. The default ```.where('table_schema', …)``` filter caused issues during component migration because SQLite does not support table_schema. This change aligns with recommendations found in Capstone team documentation.
 
 ```migrateModels.js```
 Added: Table rename mapping for sidebar migration and modified logic to use renamed table (plural → singular)
