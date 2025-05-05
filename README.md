@@ -4,17 +4,17 @@ This fork introduces a few minor but important changes to enable successful migr
 ```migrateComponents.js```
 Line 58: Removed .where('table_schema', ...) filter.
 
-<pre><code>```js // Original (removed): .where('table_schema', dbConfig.connection.database)``` </code></pre>
+<pre><code>// Original (removed): .where('table_schema', dbConfig.connection.database)</code></pre>
 
 This line was removed to ensure compatibility with SQLite. The default .where('table_schema', …) filter caused issues during component migration because SQLite does not support table_schema. This change aligns with recommendations found in Capstone team documentation.
 
 ```migrateModels.js```
 Added: Table rename mapping for sidebar migration and modified logic to use renamed table (plural → singular)
 
-<pre><code>```js const TABLE_RENAMES = { sidebars: 'sidebar', }; ``` </code></pre>
-<pre><code>```const srcTable  = modelDef.collectionName; const destTable = (TABLE_RENAMES[srcTable] || srcTable).toLowerCase(); await migrate(srcTable, destTable, (item) => {
+<pre><code>const TABLE_RENAMES = { sidebars: 'sidebar', };</code></pre>
+<pre><code>const srcTable  = modelDef.collectionName; const destTable = (TABLE_RENAMES[srcTable] || srcTable).toLowerCase(); await migrate(srcTable, destTable, (item) => {
   ...
-}); ``` </code></pre>
+});</code></pre>
 
 This ensures that data from the sidebars table in v3 is correctly migrated into the new sidebar table in v4, which uses singular naming conventions.
 ---
