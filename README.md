@@ -17,6 +17,7 @@ Added: Table rename mapping for sidebar migration and modified logic to use rena
 });</code></pre>
 
 This ensures that data from the sidebars table in v3 is correctly migrated into the new sidebar table in v4, which uses singular naming conventions.
+
 ---
 
 # Strapi Migration Scripts
